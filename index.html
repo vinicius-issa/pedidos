@@ -1,0 +1,130 @@
+<html ng-app="addPedidos">
+	<head>
+		<title>Pedidos</title>
+		<script src="lib/angular/angular.js"></script>
+		<link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
+		<script type="text/javascript">
+			angular.module("addPedidos",[]);
+			angular.module("addPedidos").controller("addPedidosCtrl",function ($scope) {
+				$scope.listaUnidades=[
+					{nome:'Matriz', value:'matriz'},
+					{nome:'Vila', value:'vila'},
+					{nome:'HE', value:'he'}
+				];
+				$scope.listaFormaPagamento=[
+					"Debito",
+					"Credito",
+					"Dinheiro"
+				];
+				$scope.listaSalgados=[
+					{nome:'Coxinha', value:'coxinha', tipo:'frito'},
+					{nome:'Bolinha', value:'bolinha', tipo:'frito'},
+					{nome:'Quibe', value:'quibe', tipo:'frito'},
+					{nome:'Pastel Carne', value:'pastel-carne', tipo:'frito'},
+					{nome:'Croquete', value:'croquete', tipo:'frito'},
+					{nome:'Esfirra carne', value:'esfirra-carne', tipo:'assado'},
+					{nome:'Esfirra Frango', value:'esfirra-frango', tipo:'assado'}
+				];
+				$scope.salgados = [];
+				$scope.listaStatus = [
+					'Registrado',
+					'Separado',
+					'Preparado',
+					'Finalizado'
+				];
+				$scope.listaFonte = [
+					"Pessoalmente",
+					"Whatsapp",
+					"Telefone",
+					"Facebook",
+					"DM Insta",
+					"iFood"
+				];
+				$scope.adicionarSalgado = function(salgado){
+					$scope.salgados.push(angular.copy(salgado));
+					$scope.pedido.quantidade += salgado.quantidade;
+					delete $scope.salgado;
+				};
+				$scope.enviarPedido = function(pedido){
+					$scope.pedido.salgados = angular.copy($scope.salgados);
+					console.log(pedido);
+				}
+			});
+		</script>
+		<style type="text/css">
+			.form-control{
+				margin-top: 5px;
+			}
+			.corpo{
+				width: 600px;
+				margin-right: auto;
+				margin-left: auto;
+			}
+			.center{
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body ng-controller="addPedidosCtrl">
+		<div class="center">
+			<h1>Pedido</h1>
+		</div>
+		<div class="corpo">
+			<form class="form">
+				<input type="text" class="form-control" name="cliente" ng-model="pedido.cliente" placeholder="Cliente"  />
+				<input type="text" class="form-control" name="telefone" ng-model="pedido.telefone" placeholder="Telefone" />
+				<input type="date" class="form-control" name="data" ng-model="pedido.data" placeholder="Data" />
+				<input type="time" class="form-control" name="cliente" ng-model="pedido.hora" placeholder="Hora" />
+				<select class="form-control" name="unidade" ng-model="pedido.unidade" ng-options="unidade.nome for unidade in listaUnidades">
+					<option value="">Selecione a unidade</option>
+				</select>
+				Quantidade:<input type="number" ng-init="pedido.quantidade=0" class="form-control" name="quantidade" ng-model="pedido.quantidade" label="Quantidade" />
+				Sortido:<input type="checkbox" class="form-control" name="sortido" ng-model="pedido.sortido"/>
+				<div ng-show="!pedido.sortido || pedido.status!='Registrado'">
+					<table class="table table-striped">
+						<thead>
+							<tr class="center">
+								<td>Sabor</td>
+								<td>Quantidade</td>
+							</tr>
+						</thead>	
+						<tbody>
+							<tr ng-repeat="salgado in salgados">
+								<td>{{salgado.sabor.nome}}</td>
+								<td>{{salgado.quantidade}}</td>
+							</tr>
+							<tr>
+								<td>
+									<select class="form-control" name="salgado.sabor" ng-model="salgado.sabor" ng-options="salgado.nome for salgado in listaSalgados">
+										<option value="">Selecione o salgado</option>
+									</select>
+								</td>
+								<td>
+									<input type="number" class="form-control" name="quantidade" ng-model="salgado.quantidade"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary" ng-click="adicionarSalgado(salgado)">Adicionar Salgado</button>
+				</div>
+
+				<select class="form-control" name="formaPagamento" ng-model="pedido.formaPagamento" ng-options="pagamento for pagamento in listaFormaPagamento">
+					<option value="">Selecione a forma de pagamento</option>
+				</select>
+				Pago:<input type="checkbox" class="form-control" name="pago" ng-model="pedido.pago"/>
+				Entrega:<input type="checkbox" class="form-control" name="entrega" ng-model="pedido.entrega" aria-label="Entrega"/>
+				<input type="text" class="form-control" name="endereco" ng-model="pedido.endereco" placeholder="Endereço" ng-show="pedido.entrega"/>
+				<select class="form-control" name="fonte" ng-model="pedido.fonte" ng-options="fonte for fonte in listaFonte">
+					<option value="">Selecione a origem do pedido</option>
+				</select>
+				<select class="form-control" name="status" ng-init="pedido.status = listaStatus[0]" ng-model="pedido.status" ng-options="stat for stat in listaStatus">
+					<option value="registrado">Selecione o status do pedido</option>
+				</select>
+				<input type="text" class="form-control" name="responsavel" ng-model="pedido.responsavel" placeholder="Responsavel" />
+
+				<button class="btn btn-primary" ng-click="enviarPedido(pedido)">Salvar</button>
+
+			</form>
+		</div>
+	</body>
+</html>
