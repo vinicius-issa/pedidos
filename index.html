@@ -3,67 +3,10 @@
 		<title>Pedidos</title>
 		<script src="lib/angular/angular.js"></script>
 		<link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
-		<script type="text/javascript">
-			angular.module("addPedidos",[]);
-			angular.module("addPedidos").controller("addPedidosCtrl",function ($scope) {
-				$scope.listaUnidades=[
-					{nome:'Matriz', value:'matriz'},
-					{nome:'Vila', value:'vila'},
-					{nome:'HE', value:'he'}
-				];
-				$scope.listaFormaPagamento=[
-					"Debito",
-					"Credito",
-					"Dinheiro"
-				];
-				$scope.listaSalgados=[
-					{nome:'Coxinha', value:'coxinha', tipo:'frito'},
-					{nome:'Bolinha', value:'bolinha', tipo:'frito'},
-					{nome:'Quibe', value:'quibe', tipo:'frito'},
-					{nome:'Pastel Carne', value:'pastel-carne', tipo:'frito'},
-					{nome:'Croquete', value:'croquete', tipo:'frito'},
-					{nome:'Esfirra carne', value:'esfirra-carne', tipo:'assado'},
-					{nome:'Esfirra Frango', value:'esfirra-frango', tipo:'assado'}
-				];
-				$scope.salgados = [];
-				$scope.listaStatus = [
-					'Registrado',
-					'Separado',
-					'Preparado',
-					'Finalizado'
-				];
-				$scope.listaFonte = [
-					"Pessoalmente",
-					"Whatsapp",
-					"Telefone",
-					"Facebook",
-					"DM Insta",
-					"iFood"
-				];
-				$scope.adicionarSalgado = function(salgado){
-					$scope.salgados.push(angular.copy(salgado));
-					$scope.pedido.quantidade += salgado.quantidade;
-					delete $scope.salgado;
-				};
-				$scope.enviarPedido = function(pedido){
-					$scope.pedido.salgados = angular.copy($scope.salgados);
-					console.log(pedido);
-				}
-			});
+		<link rel="stylesheet" href="./css/pedidos.css">
+		<script type="text/javascript" src="./js/pedidos.js"></script>
+		<script type="text/javascript" src="./js/controllers/addPedidosCtrl.js">
 		</script>
-		<style type="text/css">
-			.form-control{
-				margin-top: 5px;
-			}
-			.corpo{
-				width: 600px;
-				margin-right: auto;
-				margin-left: auto;
-			}
-			.center{
-				text-align: center;
-			}
-		</style>
 	</head>
 	<body ng-controller="addPedidosCtrl">
 		<div class="center">
@@ -121,6 +64,7 @@
 					<option value="registrado">Selecione o status do pedido</option>
 				</select>
 				<input type="text" class="form-control" name="responsavel" ng-model="pedido.responsavel" placeholder="Responsavel" />
+				<input type="textarea" class="form-control" name="observacao" ng-model="pedido.observacao" placeholder="Observações" />
 
 				<button class="btn btn-primary" ng-click="enviarPedido(pedido)">Salvar</button>
 
