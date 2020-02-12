@@ -1,4 +1,4 @@
-angular.module("addPedidos").controller("addPedidosCtrl",function ($scope, $firebaseObject) {
+angular.module("pedidos").controller("addPedidosCtrl",function ($scope, $firebaseObject) {
 	var ref = firebase.database().ref("salgados");
 	$scope.listaSalgados = $firebaseObject(ref);
 	console.log(ref);
