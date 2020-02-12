@@ -1,2 +1,2 @@
 
-angular.module("addPedidos",[]);
+angular.module("addPedidos",["firebase"]);

@@ -5,7 +5,26 @@
 		<link rel="stylesheet" href="./lib/bootstrap/bootstrap.min.css">
 		<link rel="stylesheet" href="./css/pedidos.css">
 		<script type="text/javascript" src="./js/pedidos.js"></script>
-		<script type="text/javascript" src="./js/controllers/addPedidosCtrl.js">
+		<script type="text/javascript" src="./js/controllers/addPedidosCtrl.js"></script>
+		<!-- Angular -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+		<!-- Firebase -->
+		<script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+		<!-- AngularFire -->
+		<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+		<script>
+		  // Initialize the Firebase SDK
+		  var config = {
+  		    apiKey: "AIzaSyCLiogj9x7qgI0Qa1FrzApLwU38Hp_588U",
+		    authDomain: "pedidos-50368.firebaseapp.com",
+		    databaseURL: "https://pedidos-50368.firebaseio.com",
+		    projectId: "pedidos-50368",
+		    storageBucket: "pedidos-50368.appspot.com",
+		    messagingSenderId: "560577321295",
+		    appId: "1:560577321295:web:95ca256a80dd49b7"
+
+		  };
+		  firebase.initializeApp(config);
 		</script>
 	</head>
 	<body ng-controller="addPedidosCtrl">
@@ -38,7 +57,7 @@
 							</tr>
 							<tr>
 								<td>
-									<select class="form-control" name="salgado.sabor" ng-model="salgado.sabor" ng-options="salgado.nome for salgado in listaSalgados">
+									<select class="form-control" name="salgado.sabor" ng-model="salgado.sabor" ng-options="salgado.nome for salgado in listaSalgados.sabor">
 										<option value="">Selecione o salgado</option>
 									</select>
 								</td>
