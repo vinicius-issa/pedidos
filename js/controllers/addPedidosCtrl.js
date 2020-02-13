@@ -1,7 +1,5 @@
-angular.module("pedidos").controller("addPedidosCtrl",function ($scope, $firebaseObject) {
-	var ref = firebase.database().ref("salgados");
-	$scope.listaSalgados = $firebaseObject(ref);
-	console.log(ref);
+angular.module("pedidos").controller("addPedidosCtrl",function ($scope, salgadosAPI) {
+	$scope.listaSalgados = salgadosAPI.getSalgados();
 
 	$scope.listaUnidades=[
 		{nome:'Matriz', value:'matriz'},
