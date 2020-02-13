@@ -1,10 +1,10 @@
-angular.module("pedidos").controller("addPedidosCtrl",function ($scope, salgadosAPI) {
+angular.module("pedidos").controller("addPedidosCtrl",function ($scope, pedidosAPI, salgadosAPI) {
 	$scope.listaSalgados = salgadosAPI.getSalgados();
 
 	$scope.listaUnidades=[
-		{nome:'Matriz', value:'matriz'},
-		{nome:'Vila', value:'vila'},
-		{nome:'HE', value:'he'}
+		"Matriz",
+		"Vila",
+		"HE"
 	];
 	$scope.listaFormaPagamento=[
 		"Debito",
@@ -34,6 +34,6 @@ angular.module("pedidos").controller("addPedidosCtrl",function ($scope, salgados
 	};
 	$scope.enviarPedido = function(pedido){
 		$scope.pedido.salgados = angular.copy($scope.salgados);
-		console.log(pedido);
+		pedidosAPI.savePedido(pedido);
 	}
 });

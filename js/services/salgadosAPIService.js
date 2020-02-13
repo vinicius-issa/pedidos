@@ -1,6 +1,9 @@
 angular.module("pedidos").factory("salgadosAPI", function (config, $firebaseObject) {
-	var _getSalgados = function () {
-		firebase.initializeApp(config.firebaseConfig);
+	if (firebase.apps.length === 0){
+				firebase.initializeApp(config.firebaseConfig);
+	}
+	
+	var _getSalgados = function () {		
 		var ref = firebase.database().ref("salgados");
 		return $firebaseObject(ref);
 	};
