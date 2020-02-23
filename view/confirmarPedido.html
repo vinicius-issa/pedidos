@@ -1,0 +1,52 @@
+<div class="jumbotron corpo">
+	<div class="center">
+		<h1>Confirmar Pedido</h1>
+		<hr class="my-4">	
+	</div>
+	<div>
+		<div>
+			<h3 class="center">{{pedido.cliente}} - {{pedido.telefone}}</h3>
+		</div>
+		<div>
+			<h4 class="center">
+				{{pedido.data | date:'EEEE'}} - {{pedido.data | date:'dd/MM/yyyy'}} - {{pedido.hora | date:'H:mm'}} - {{pedido.unidade}}
+			</h4>
+		</div>
+		<div>
+			Quantidade: <span ng-if="pedido.sortido">{{pedido.quantidade}} Sortidos</span>
+			<div class="quantidades" ng-if="qtdAssados>0">
+				{{qtdAssados}} assados 
+			</div>
+			<div class="quantidades" ng-if="qtdFritos>0">
+				{{qtdFritos}} fritos 
+			</div>
+			
+			<table class="table table-striped tabela" ng-if="pedido.salgados.length>0">
+				<thead class="thead-light">
+					<tr><th class="center">Sabores</th></tr>
+				</thead>
+				<tr ng-repeat="salgado in pedido.salgados"><td>{{salgado.quantidade}} - {{salgado.sabor.nome}}</td></tr>
+			</table>
+
+		</div>
+		<div>
+			<span ng-if="pedido.pago"><b>PAGO - </b></span><span ng-if="pedido.formaPagamento">{{pedido.formaPagamento}} </span>
+		</div>
+		<div ng-if="pedido.entrega">
+			ENTREGAR: {{pedido.endereco}}
+		</div>
+		<div ng-if="pedido.resposavel">
+			Realizado com: {{pedido.responsavel}}
+		</div>
+		<div ng-if="pedido.fonte">
+			Via: {{pedido.fonte}}
+		</div>
+		<div ng-if="pedido.observacao">
+			Observação: {{pedido.observacao}}
+		</div>
+		<div>
+			<button class="btn btn-primary" ng-disabled="!pedido" ng-click="confirmar(pedido)">Salvar</button>
+		</div>
+		</form>
+	</div>
+<div>

@@ -1,0 +1,26 @@
+<div class="jumbtron corpo">
+	<div class="form-group form-inline">
+		<input type="text" class="form-text form-inline block s450" ng-model="filtro" placeholder="Pesquise aqui pelo pedido" />
+		<a href="#!/add" class="esquerda btn btn-primary">Novo Pedido</a>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Cliente</th>
+				<th>Telefone</th>
+				<th>Data</th>
+				<th>Hora</th>
+				<th>Quantidade</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="pedido in pedidos | filter:filtro | orderBy:'data'">
+			<td><a href="#!/pedido/{{pedido.id}}"> {{pedido.cliente}}</a></td>
+			<td>{{pedido.telefone}}</td>
+			<td>{{formatarData(pedido.data) | date:'dd/MM/yyyy'}}</td>
+			<td>{{formatarData(pedido.hora) | date:'H:mm'}}</td>
+			<td>{{pedido.quantidade}}</td>
+			<td>{{pedido.status}}</td>
+		</tr>
+	</table>
+</div>

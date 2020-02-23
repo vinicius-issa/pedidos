@@ -1,2 +1,2 @@
 
-angular.module("pedidos",["firebase"]);
+angular.module("pedidos",["firebase","ngRoute"]);

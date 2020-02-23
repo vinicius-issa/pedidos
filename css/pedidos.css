@@ -9,3 +9,24 @@
 .center{
 	text-align: center;
 }
+
+.btn-primary{
+	margin-top: 5px;
+}
+
+.tabela{
+	margin-top: 5px;
+}
+
+.quantidades{
+	margin-left: 20px;
+}
+
+.esquerda{
+	float: right;
+	margin: 5px
+}
+
+.s450{
+	width: 450px;
+}

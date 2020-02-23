@@ -1,0 +1,79 @@
+<div>
+	<div class="center">
+		<h1>Pedido</h1>
+	</div>
+	<div class="corpo">
+		<form name="formPedido" class="form">
+			<input type="text" class="form-control" name="cliente" ng-model="pedido.cliente" placeholder="Cliente"  required/>
+			<small ng-show="formPedido.cliente.$error.required && formPedido.cliente.$touched" class="text-danger">Insira o nome do Cliente</small>
+			
+			<input type="text" class="form-control" name="telefone" ng-model="pedido.telefone" placeholder="Telefone" />
+			
+			<input type="date" class="form-control" name="data" ng-model="pedido.data" placeholder="Data" required/>
+			<small ng-show="formPedido.data.$error.required && formPedido.data.$touched" class="text-danger">Insira a data do pedido</small>
+			
+			<input type="time" class="form-control" name="hora" ng-model="pedido.hora" placeholder="Hora" required/>
+			<small ng-show="formPedido.hora.$error.required && formPedido.hora.$touched" class="text-danger">Insira o horario do pedido</small>
+
+			<select class="form-control" name="unidade" ng-model="pedido.unidade" ng-options="unidade for unidade in listaUnidades" required>
+				<option value="">Selecione a unidade</option>
+			</select>
+			<small ng-show="formPedido.unidade.$error.required && formPedido.unidade.$touched" class="text-danger">Insira a unidade de retirada<br/></small>
+			Quantidade:<input type="number" ng-init="pedido.quantidade" class="form-control" name="quantidade" ng-model="pedido.quantidade" label="Quantidade" required/>
+			<small ng-show="quantidade<=0 && formPedido.quantidade.$touched" class="text-danger">Insira a quantidade de salgadinhos</small>
+			
+
+			Sortido:<input type="checkbox" class="form-control" name="sortido" ng-model="pedido.sortido"/>
+			<div ng-show="!pedido.sortido || pedido.status!='Registrado'">
+				<table class="table table-striped">
+					<thead>
+						<tr class="center">
+							<td>Sabor</td>
+							<td>Quantidade</td>
+							<td></td>
+						</tr>
+					</thead>	
+					<tbody>
+						<tr ng-repeat="salgado in salgados">
+							<td>{{salgado.sabor.nome}}</td>
+							<td>{{salgado.quantidade}}</td>
+							<td><button class="btn" ng-click="removerSalgado($index)">X</button></td>
+						</tr>
+						<tr>
+							<td>
+								<select class="form-control" id="sabor" name="salgado.sabor" ng-model="salgado.sabor" ng-options="salgado.nome for salgado in listaSalgados.sabor">
+									<option value="">Selecione o salgado</option>
+								</select>
+								<small ng-show="saborError" class="text-danger">Escolha o sabor</small>
+							</td>
+							<td>
+								<input type="number" class="form-control" name="quantidade" ng-model="salgado.quantidade"/>
+							</td>
+							<td>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="btn btn-primary" type="button" ng-click="adicionarSalgado(salgado)">Adicionar Salgado</button>
+			</div>
+
+			<select class="form-control" name="formaPagamento" ng-model="pedido.formaPagamento" ng-options="pagamento for pagamento in listaFormaPagamento">
+				<option value="">Selecione a forma de pagamento</option>
+			</select>
+			Pago:<input type="checkbox" class="form-control" name="pago" ng-model="pedido.pago"/>
+			Entrega:<input type="checkbox" class="form-control" name="entrega" ng-model="pedido.entrega" aria-label="Entrega"/>
+			<input type="text" class="form-control" name="endereco" ng-model="pedido.endereco" placeholder="Endereço" ng-show="pedido.entrega"/>
+			<select class="form-control" name="fonte" ng-model="pedido.fonte" ng-options="fonte for fonte in listaFonte">
+				<option value="">Selecione a origem do pedido</option>
+			</select>
+			<select class="form-control" name="status" ng-init="pedido.status" ng-model="pedido.status" ng-options="stat for stat in listaStatus">
+				<option value="registrado">Selecione o status do pedido</option>
+			</select>
+			<input type="text" class="form-control" name="responsavel" ng-model="pedido.responsavel" placeholder="Responsavel" />
+			<input type="textarea" class="form-control" name="observacao" ng-model="pedido.observacao" placeholder="Observações" />
+
+			<button class="btn btn-primary" ng-disabled="formPedido.$invalid" ng-click="enviarPedido(pedido)">Salvar</button>
+
+		</form>
+	</div>
+<div>
