@@ -67,7 +67,9 @@ angular.module("pedidos").controller("addPedidosCtrl",function ($scope, $q, $loc
 		if(salgado){
 			$scope.saborError = false;
 			$scope.salgados.push(angular.copy(salgado));
-			$scope.pedido.quantidade += salgado.quantidade;
+			if(!$scope.pedido.sortido){
+				$scope.pedido.quantidade += salgado.quantidade;
+			}
 			document.getElementById('sabor').focus();
 			delete $scope.salgado;
 		}
@@ -83,6 +85,11 @@ angular.module("pedidos").controller("addPedidosCtrl",function ($scope, $q, $loc
 	}
 
 	$scope.removerSalgado = function(id_array){
+		if(!$scope.pedido.sortido){
+			var qtd = $scope.salgados[id_array].quantidade;
+			$scope.pedido.quantidade = $scope.pedido.quantidade - qtd;
+		}
 		$scope.salgados.splice(id_array,1);
 	}
+
 });
