@@ -6,11 +6,11 @@ angular.module("pedidos").factory("pedidosAPI", function (config, $firebaseObjec
 	var _savePedido = function (pedido) {
 		console.log("SavePedidosAPIFunction");
 		if(pedido.hora){
-			var hora = pedido.hora.toString();
+			var hora = pedido.hora.getTime();
 			pedido.hora = hora;
 		}
 		if(pedido.data){
-			var data = pedido.data.toString();
+			var data = pedido.data.getTime();
 			pedido.data = data;
 		}
 		console.log("PedidoID:" + pedido.$id);
@@ -41,12 +41,29 @@ angular.module("pedidos").factory("pedidosAPI", function (config, $firebaseObjec
 		console.log(ref);
 		console.log("HEI");
 		var obj = $firebaseObject(ref);
+		var data = obj.data;
+		obj.data = new Date(data);
+		var hora = obj.hora;
+		obj.hora = new Date(hora);
 		return obj;
 	};
+
+	var _removePedido = function(id){
+		console.log("ID");
+		console.log(toString(id));
+		var obj = _getPedido(id);
+		obj.$remove().then(function(ref) {
+		  console.log("Objeto removido com sucesso");
+		}, function(error) {
+		  console.log("Error:", error);
+		});
+	}
 
 	return {
 		savePedido: _savePedido,
 		getAllPedidos: _getAllPedidos,
 		getPedido:_getPedido,
+		removePedido:_removePedido,
 	};
+
 });
