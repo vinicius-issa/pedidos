@@ -22,7 +22,7 @@ angular.module("pedidos").controller("confirmarPedidoCtrl",function ($scope, $lo
 	$scope.confirmar = function(pedido){
 		pedidosAPI.savePedido(angular.copy(pedido));
 		compartilharPedido.cleanPedido();
-		$location.path("/");
+		window.history.go(-2);
 	}
 
 	$scope.copiar = function(){

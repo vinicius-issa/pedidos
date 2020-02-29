@@ -23,10 +23,30 @@
 }
 
 .esquerda{
-	float: right;
+	float: left;
 	margin: 5px
 }
 
 .s450{
 	width: 550px;
+}
+
+.direita{
+	text-align: right;
+}
+
+.card{
+	margin-bottom: 10px;
+}
+
+.finalizado{
+	background-color: #b30000;
+}
+
+.separado{
+	background-color: #ffff1a;
+}
+
+.preparado{
+	background-color: #77b300;
 }

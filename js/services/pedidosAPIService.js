@@ -3,6 +3,25 @@ angular.module("pedidos").factory("pedidosAPI", function (config, $firebaseObjec
 			firebase.initializeApp(config.firebaseConfig);
 	}
 
+	var _dateToDataHora = function(pedido){
+		if(pedido.hora){
+			pedido.hora = pedido.hora.getTime();
+		}
+		if(pedido.data){
+			pedido.data = pedido.data.getTime();
+		}
+	}
+
+	var _dataHoraToDate = function(pedido){
+		if(pedido.data){
+			pedido.data = new Date(pedido.data);
+		}
+		if(pedido.hora){
+			pedido.hora = new Date(pedido.hora);
+		}
+	}
+
+
 	var _savePedido = function (pedido) {
 		console.log("SavePedidosAPIFunction");
 		if(pedido.hora){
@@ -14,6 +33,7 @@ angular.module("pedidos").factory("pedidosAPI", function (config, $firebaseObjec
 			pedido.data = data;
 		}
 		console.log("PedidoID:" + pedido.$id);
+		console.log(pedido);
 		var dados = {};
 		if(pedido.$id){
 			var pedidoRef = firebase.database().ref("pedidos").child(pedido.$id);
@@ -32,8 +52,19 @@ angular.module("pedidos").factory("pedidosAPI", function (config, $firebaseObjec
 	var _getAllPedidos = function(){
 		var ref;
 		ref = firebase.database().ref("pedidos");
+		var obj = $firebaseArray(ref);
+		obj.$loaded(function(data){
+			angular.forEach(data,function(item){
+				if(item.data){
+					item.data = new Date(item.data);
+				}
+				if(item.hora){
+					item.hora = new Date(item.hora);
+				}
+			});
+		})
+		return obj;	
 
-		return $firebaseArray(ref);
 	};
 
 	var _getPedido = function(id){
@@ -64,6 +95,8 @@ angular.module("pedidos").factory("pedidosAPI", function (config, $firebaseObjec
 		getAllPedidos: _getAllPedidos,
 		getPedido:_getPedido,
 		removePedido:_removePedido,
+		dateToDataHora:_dateToDataHora,
+		dataHoraToDate:_dataHoraToDate
 	};
 
 });

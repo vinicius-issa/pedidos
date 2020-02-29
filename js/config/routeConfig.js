@@ -14,7 +14,13 @@ angular.module("pedidos").config(function($routeProvider){
 		controller:"confirmarPedidoCtrl",
 	},);
 
+
 	$routeProvider.when("/",{
+		templateUrl:"view/geral.html",
+		controller:"listarPedidosCtrl"
+	},);
+
+	$routeProvider.when("/listar",{
 		templateUrl:"view/list.html",
 		controller:"listarPedidosCtrl"
 	},);

@@ -1,5 +1,11 @@
 <div class="jumbotron corpo">
-	<div class="center"><h1>Pedidos</h1></div>	
+	<div class="center"><h1>Pedidos</h1></div>
+	<div class="direita">
+		<a href="" ng-click="exibirEsconderFiltro()">Filtrar</a><br/>
+	</div>
+	<div ng-show="exibirFiltro">
+		
+	</div><br>
 	<div class="form-group form-inline">
 		<input type="text" class="form-text form-inline block s450" ng-model="filtro" placeholder="Pesquise aqui pelo pedido" />
 		<a href="#!/add" class="esquerda btn btn-primary">Novo Pedido</a>
@@ -17,10 +23,10 @@
 			</tr>
 		</thead>
 		<tr ng-repeat="pedido in pedidos | filter:filtro | orderBy:ordenar">
-			<td><a href="#!/pedido/{{pedido.id}}"> {{pedido.cliente}}</a></td>
+			<td><a href="#!/pedido/{{pedido.$id}}"> {{pedido.cliente}}</a></td>
 			<td>{{pedido.telefone}}</td>
 			<td>{{formatarData(pedido.data) | date:'dd/MM/yyyy'}}</td>
-			<td>{{formatarData(pedido.hora) | date:'H:mm'}}</td>
+			<td>{{pedido.hora | date:'H:mm'}}</td>
 			<td class="center">{{pedido.quantidade}}</td>
 			<td>{{pedido.status}}</td>
 			<td><button class="btn btn-danger" ng-confirm-click="Are you sure to delete this record ?" confirmed-click="removerPedido('{{pedido.$id}}')">X</button></td>

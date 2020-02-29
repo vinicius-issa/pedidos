@@ -1,0 +1,48 @@
+<dir>
+	<div class="content">
+		<div class="row">
+		 	<div class="col-md-3 col-sm-4 col-xs-12" ng-repeat="pedido in pedidos | orderBy:'hora'" >
+		   		<div class="card">
+				    <div class="card-header" ng-class="pedido.status" id="headingOne">
+				      <h5 class="mb-0">
+				        <button class="btn btn-link" data-toggle="collapse" data-target='#collapse{{$index}}' aria-expanded="false" aria-controls='collapse{{$index}}'>
+				          {{pedido.cliente}} - {{pedido.hora | date:'H:mm'}} - {{pedido.quantidade}}
+				        </button>
+				      </h5>
+				    </div>
+
+				    <div id='collapse{{$index}}' class="collapse " aria-labelledby='heading{{index}}'>
+				      <div class="card-body">
+
+				      	<div>
+				      		<table class="table" ng-if="pedido.salgados.length>0">
+								<tr ng-repeat="salgado in pedido.salgados"><td>{{salgado.quantidade}} - {{salgado.sabor.nome}}</td></tr>
+							</table>
+							<small ng-if="pedido.sortido">Pediu sortido</small>
+						</div>
+						<div>
+							<span ng-if="pedido.pago"><b>PAGO - </b></span><span ng-if="pedido.formaPagamento">{{pedido.formaPagamento}} </span>
+						</div>
+						<div ng-if="pedido.entrega">
+							ENTREGAR: {{pedido.endereco}}
+						</div>
+						<div ng-if="pedido.resposavel">
+							Realizado com: {{pedido.responsavel}}
+						</div>
+						<div ng-if="pedido.fonte">
+							Via: {{pedido.fonte}}
+						</div>
+						<div ng-if="pedido.observacao">
+							Observação: {{pedido.observacao}}
+						</div>
+
+						<button class="btn btn-success btn-block" ng-disabled="pedido.status==='Finalizado'" ng-click="alterarStatus(pedido)">
+							{{pedido.status}}
+						</button>
+				      </div>
+				    </div>
+				  </div>
+		 	</div>
+		</div>
+	</div>
+</dir>

@@ -90,6 +90,6 @@ angular.module("pedidos").controller("addPedidosCtrl",function ($scope, $q, $loc
 			$scope.pedido.quantidade = $scope.pedido.quantidade - qtd;
 		}
 		$scope.salgados.splice(id_array,1);
-	}
+	};
 
 });

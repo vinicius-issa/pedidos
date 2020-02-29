@@ -1,2 +1,1 @@
-
-angular.module("pedidos",["firebase","ngRoute"]);
+angular.module("pedidos",["firebase","ngRoute","angular.filter"]);
